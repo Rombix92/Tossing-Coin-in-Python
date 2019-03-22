@@ -14,12 +14,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 # initialize and populate all_walks
 
-#below I create function which will calulate to which floor I will reach till 100 tosses in 10 random separate occasions
+#below I create function which will calulate to which floor I will reach till 100 tosses in 100 random separate occasions
 
 #list which will old number of floor in each step in each random walk
 all_walks = []
-#i will calculate final floor in 10 separate random occasion
-for i in range(10) :
+#i will calculate final floor in 100 separate random occasion
+for i in range(100) :
     #floor on which i will finish in given random occasion
     random_walk = [0]
     #100 times i will toss a die
@@ -35,6 +35,10 @@ for i in range(10) :
             step = step + 1
         else:
             step = step + np.random.randint(1,7)
+        #additionaly I added a situation of low chance of apperance 0.1% that I fill fall down and land on the 0 floor again
+        if np.random.rand() <= 0.001 :
+            step = 0
+        
         random_walk.append(step)
     all_walks.append(random_walk)
 
@@ -49,4 +53,11 @@ plt.plot(np_aw_t)
 plt.show()
 
 #in case of 6 of 10 attempts the goal was achieved
-sum(np_aw_t[100]>60)
+ends=np_aw_t[100]
+
+np.random.rand()
+plt.hist(ends)
+plt.show()
+
+#my chance of winning are of 77%
+np.mean(ends>=60)
